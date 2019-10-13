@@ -1,0 +1,264 @@
+body{
+    font: 15px/1.3 Arial, Helvetica, sans-serif;
+    padding: 0px;
+    padding-bottom: 0px;
+    margin: 0px;
+    margin-bottom: 0px;
+    background-color: #f4f4f4f1;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.login_button{
+    height: 50px;
+    width: 150px;
+    font-size: 13px;
+    color: #eeecec;
+    background: #d37a05;
+    border: 0;
+}
+
+.Connection_button{
+    
+    height: 50px;
+    width: 150px;
+    font-size: 13px;
+    color: #eeecec;
+    background: #d37a05;
+    border: 0;
+}
+
+.event-detail{
+    float: left;
+    width: 50%;
+    height: auto;
+}
+
+.event-decision{
+    float:right;
+    width: 50%;
+    height: auto;
+}
+
+#Connection-detail{
+    min-height: 570px;
+}
+.event-decision #event-decision-button li{
+    display: inline-block;
+}
+
+ #yes-button{
+    background-color: rgb(5, 168, 5); 
+    color: #eeecec;
+    border: none;
+    height: 25px;
+}
+
+#no-button{
+    background-color: rgb(206, 10, 10);
+    color: #eeecec;
+    border: none;
+    height: 25px;
+}
+
+#maybe-button{
+    background-color: rgb(42, 111, 240); 
+    color: #eeecec;
+    border: none;
+    height: 25px;
+}
+
+header{
+    background-color: #14608f;
+    border-bottom: #d37a05 3px solid;
+}
+
+header a{
+    color: #eeecec;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.logo-container{
+    margin-top: 6px;
+    text-align: center;
+}
+#logo{
+  max-width: 20%;
+  height: auto; 
+}
+
+#left-nav{
+    float: left;
+}
+
+#left-nav li{
+    display: inline-block;
+}
+
+#right-nav{
+    float: right;
+}
+
+#right-nav li{
+    display: flex;
+    justify-content: space-around;
+    width:400px;
+}
+
+header a:hover{
+    color: #d37a05;
+    font-weight: bold;
+}
+
+#intro{
+    min-height: 400px;
+    background: url('../img/people.jpg') no-repeat 0 -300px;
+    
+    text-align: center;
+    color: #ffffff;
+}
+
+#intro h1{
+    margin-top: 100px;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+#intro p{
+    font-size: 25px;
+}
+
+#next-page-nav{
+    text-align: center;
+    min-height: 250px;
+}
+
+footer{
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    color: #eeecec;
+    background-color: #14608f;
+}
+
+#left-footer{
+    float: left;
+    margin-top: 11px;
+}
+
+#left-footer li{
+    display: inline-block;
+    text-decoration: none;
+    width: 140px;
+    padding:0px 2px;
+}
+
+#right-footer{
+    float:right;
+}
+
+#right-footer li{
+    display: inline-block;
+}
+
+footer a{
+    color: #eeecec;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#categories{
+    margin-top: 20px;
+    min-height: 570px;
+}
+
+#categories .category{
+    float: left;
+    width: 40%;
+}
+
+#education-img{
+    height: 250px;
+}
+
+#sports-img{
+    height: 250px;
+    }
+
+#categories .title{
+    text-align: center;
+}
+
+#user-img{
+    max-width: 30%;
+    height: auto;
+    text-align: center;
+}
+
+  th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 15px;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  table {
+    border-spacing: 0px;
+    border: black solid 1.5px;
+  }
+
+  #user-connection{
+      min-height: 570px;
+  }
+
+  .user-name{
+      float: right;
+      color: #d37a05;
+  }
+
+  .user-table{
+      margin-top: 70px;
+  }
+
+  .user-table ul li{
+      display: inline-block;
+      padding: 10px;
+  }
+
+  #update-button{
+      background-color: #14608f;
+      color: #eeecec;
+      border: none;
+      height: 25px;
+  }
+
+  #cancel-button{
+    background-color: #14608f;
+    color: #eeecec;
+    border: none;
+    height: 25px;
+}
+
+.fa {
+    font-size: 30px;
+    width: 35px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20%;
+  }
+
+  .fa-facebook {
+    background: rgb(40, 65, 119);
+    color: white;
+    }
