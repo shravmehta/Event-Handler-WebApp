@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <% include header.ejs %>
+         <section id="categories">
+            <div class="container">
+                <div class="category">
+                    <div class ="title">
+                    <img src="../resources/img/sports.jpg" id="sports-img" alt="sport-category">
+                    <h3>Sports</h3>
+                    </div>
+                    <ul>
+                        <% for(var i=0; i< sports.length; i++){ %>
+                        <li><a href="/connection?id=<%=sports[i].connectionID%>"><%= sports[i].connection_name %></a></li>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="category">
+                    <div class="title">
+                    <img src="../resources/img/Education.jpg" id="education-img" alt="education-category">
+                    <h3>Education</h3>
+                    </div>
+                    <ul>
+                            <% for(var i=0; i< education.length; i++){ %>
+                                <li><a href="/connection?id=<%=education[i].connectionID%>"><%= education[i].connection_name %></a></li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+       </section>
+       <% include footer.ejs %>
+    </body>
+</html>

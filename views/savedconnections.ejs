@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <% include header-con.ejs %>
+     
+        <section id ="user-connection">
+            <div class="container">
+                <div class="user-name">
+                     <h2>Welcome, Michael!</h2>
+                 </div>
+                 <div class="user-table">
+                     <h2>Michael's Connection</h2>
+                     <table>
+                        <tr>
+                            <th>Connection</th>
+                            <th>Category</th> 
+                             <th>Going?</th>
+                             <th></th>
+                        </tr>
+                            <% for(var i =0; i< saved_data.length; i++){ %>
+                                <tr>
+                                <th><a href="/connection?id=<%=saved_data[i].connectionID%>"><%=saved_data[i].connection_name%></a></th>
+                                <th><%=saved_data.connection_topic%></th>
+                                <th>Maybe</th>
+                                <th><ul class="up-del"><li><button type="submit" class="update-button"><a href="/connection?id=<%=saved_data[i].connectionID%>">Update</a></button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
+                                </tr>
+                           <% } %>
+      
+                     </table>
+                 </div>
+             </div>
+        </section>
+        <% include footer.ejs %>
+    </body>
+</html>

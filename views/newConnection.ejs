@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <% include header.ejs %>
+     
+        <section class ="new-connection">
+                <div class="container">
+                    <div class="event-detail">
+                        <h2>Add New Connection:</h2>
+                            <form method="POST" id="new-connection">
+                                    <label id="topic" >Topic</label>
+                                    <input type="text">
+                                    <label id="name">Name</label>
+                                    <input type="text">
+                                    <label id="details">Details</label>
+                                    <input type="text">
+                                    <label id="where">Where</label>
+                                    <input type="text">
+                                    <label id="when">When</label>
+                                    <input type="date">
+                                    <button type="submit">Create Connection!</button>
+                
+                                </form>
+                    </div>
+                    </div>
+            </section>
+       
+
+        <% include footer.ejs %>
+    </body>
+</html>

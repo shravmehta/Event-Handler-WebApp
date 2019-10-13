@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+       
+        <% include header.ejs %>
+        <section id ="Connection-detail">
+            <div class="container">
+                <div class="event-detail">
+                    <h2><%=connection_data.connection_name%></h2>
+                <!-- </div> -->
+                <!-- <div class="user-details"> -->
+                    <img src="<%= connection_data.connection_display%>" id="user-img" alt="user-image">
+                    <ul id="user-info">
+                        <li> Hosted By: <%=connection_data.connection_host%></li>
+                        <li>Day&Time: <%=connection_data.date_time%></li>
+                        <li>Location: <%=connection_data.connection_location%></li>
+                    </ul>
+
+            
+                <!-- <div class="event-detail"> -->
+                        <h2>Details</h2>
+                        <p><%=connection_data.details%></p>
+                </div>
+                <div class="event-decision">
+
+                    <h3>Are you going? 11 people are going</h3>
+                    <ul id="event-decision-button">
+                        <li><a href="/savedconnections"><button type="submit" id="yes-button">Yes</button></a></li>
+                        <li><a href="/savedconnections"><button type="submit" id="no-button">No</button></a></li>
+                        <li><a href="/savedconnections"><button type="submit" id="maybe-button">Maybe</button></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            
+        </section>
+        <% include footer.ejs %>
+    </body>
+</html>
