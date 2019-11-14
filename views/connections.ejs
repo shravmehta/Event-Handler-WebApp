@@ -14,24 +14,26 @@
                 <div class="category">
                     <div class ="title">
                     <img src="../resources/img/sports.jpg" id="sports-img" alt="sport-category">
-                    <h3>Sports</h3>
+                    <h3><a href="#">Sports</a></h3>
                     </div>
                     <ul>
-                        <% for(var i=0; i< sports.length; i++){ %>
-                        <li><a href="/connection?id=<%=sports[i].connectionID%>"><%= sports[i].connection_name %></a></li>
-                        <% } %>
+                            <% for(var i=0; i< connectiondata.length; i++){ %>
+                        <% if(connectiondata[i].connection_topic === "Sports") {%>
+                        <li><a href="/connection?connectionid=<%=connectiondata[i].connectionID%>"><%= connectiondata[i].connection_name %></a></li>
+                        <%}%>
+                        <% }%>
                     </ul>
-                </div>
-                <div class="category">
-                    <div class="title">
-                    <img src="../resources/img/Education.jpg" id="education-img" alt="education-category">
-                    <h3>Education</h3>
-                    </div>
-                    <ul>
-                            <% for(var i=0; i< education.length; i++){ %>
-                                <li><a href="/connection?id=<%=education[i].connectionID%>"><%= education[i].connection_name %></a></li>
-                            <% } %>
-                    </ul>
+                        <div class ="title">
+                                <img src="../resources/img/Education.jpg" id="education-img" alt="education-category">
+                                <h3><a href="#">Education</a></h3>
+                                </div>
+                                <ul>
+                                        <% for(var i=0; i< connectiondata.length; i++){ %>
+                                            <% if(connectiondata[i].connection_topic === "Education"){ %>
+                                    <li><a href="/connection?connectionid=<%=connectiondata[i].connectionID%>"><%= connectiondata[i].connection_name %></a></li>
+                                    <%}%>
+                                    <% }%>
+                                </ul>
                 </div>
             </div>
        </section>

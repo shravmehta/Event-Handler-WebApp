@@ -13,10 +13,11 @@
         <section id ="user-connection">
             <div class="container">
                 <div class="user-name">
-                     <h2>Welcome, Michael!</h2>
+                     <h2>Welcome, <%=user.first_name%></h2>
+                    
                  </div>
                  <div class="user-table">
-                     <h2>Michael's Connection</h2>
+                     <h2><%=user.first_name%>'s Connection</h2>
                      <table>
                         <tr>
                             <th>Connection</th>
@@ -24,15 +25,29 @@
                              <th>Going?</th>
                              <th></th>
                         </tr>
-                            <% for(var i =0; i< saved_data.length; i++){ %>
+
+                            <%if(connectiondata != null) {%>
+                                
+                             <% for(var i=0; i< connectiondata.length; i++){ %>
+                                 <tr>
+                                     <th><a href="/connection?id=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
+                                     <th><%=connectiondata[i].connection_topic%></th>
+                                     <th><%=connectiondata[i].user_yes%><%=connectiondata[i].user_no%></th>
+                                     <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connectiondata[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
+
+                                 </tr>
+                                <% } %>
+                            <% } else { %>
+
+                            <% for(var i =0; i< connectiondata.length; i++){ %>
                                 <tr>
-                                <th><a href="/connection?id=<%=saved_data[i].connectionID%>"><%=saved_data[i].connection_name%></a></th>
-                                <th><%=saved_data.connection_topic%></th>
-                                <th>Maybe</th>
-                                <th><ul class="up-del"><li><button type="submit" class="update-button"><a href="/connection?id=<%=saved_data[i].connectionID%>">Update</a></button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
+                                <th><a href="/connection?id=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
+                                <th><%=connectiondata[i].connection_topic%></th>
+                                <th><%=connectiondata[i].user_yes%><%=connectiondata[i].user_no%></th>
+                                <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
                                 </tr>
                            <% } %>
-      
+                            <% } %>
                      </table>
                  </div>
              </div>

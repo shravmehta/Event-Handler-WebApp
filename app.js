@@ -1,71 +1,74 @@
 var http = require('http');
 var express = require('express');
 var connection_function = require('./model/connection');
+var profilecontroller = require('./routes/ProfileController');
+var session = require('express-session');
+var connectiondb = require('./model/connectionDB');
 
 var app = express();
-var connectiondb = require('./model/connectionDB');
+
 
 app.use('/resources', express.static('./resources'));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.get('/' , (req,res,next)=>{
+app.use(session({secret: 'Shrav', saveUninitialized:true, resave:false}));
+
+
+app.get('/' , (req,res)=>{
+
+    // console.log("TEST 1"+connectiondb.validation("EH_01"));
+    // console.log("TEST 2"+connectiondb.validation("jsahd"));
+
     res.render('index');
 });
 
-app.get('/home' , (req,res,next)=>{
+app.get('/home' , (req,res)=>{
     res.render('index');
 });
 
-app.get('/connections', (req,res,next)=>{
-    var all_data = connectiondb.getconnections();
-    var array_sports = [];
-    var array_education= [];
-    for(var i =0; i < all_data.length;i++){
-        if(all_data[i].connection_topic === 'Sports'){
-            array_sports.push(all_data[i]);
-        }
-        else if(all_data[i].connection_topic === 'Education'){
-            array_education.push(all_data[i]);
-        }
-    }
-    // console.log(array_sports);
-    // console.log(array_education);
-    res.render('connections',{sports: array_sports, education:array_education});
+app.get('/connections', (req,res)=>{
+    var conndata = connectiondb.getconnections();
+    res.render('connections', {connectiondata: conndata});
 });
 
-app.get('/connection', (req,res,next)=>{
-    
-    var connection_data = connectiondb.getconnection(req.query.id);
-    //console.log(connection_data);
-    res.render('connection',{connection_data:connection_data});
+app.get('/connection', (req,res)=>{
+   var reqid = req.query.connectionid;
+   if(reqid === undefined){
+    //    console.log("in if" + reqid);
+       
+       var conndata = connectiondb.getconnections();
+    //    console.log(conndata);
+       
+       res.render('connections', {connectiondata: conndata});
+   }
+   else if(connectiondb.validation(reqid)){
+    //    console.log("in else if" +reqid);
+       
+    res.render('connection', {connectiondata: connectiondb.getconnection(reqid)});
+   }
+   else{
+    //    console.log("in else" +reqid);
+       
+    var conndata = connectiondb.getconnections();
+    res.render('connections', {connectiondata: conndata});
+   }
+
 });
 
 
+app.use(profilecontroller);
 
-app.get('/newConnection', (req,res,next)=>{
-    res.render('newConnection');
-});
-
-app.get('/savedconnections', (req,res,next)=>{
-    var sports_data = connectiondb.getconnections();
-    var saved_data = [];
-    for (var i =0; i< sports_data.length; i++){
-        if(sports_data[i].connection_topic === 'Sports'){
-            saved_data.push(sports_data[i]);
-        }
-    }
-    // console.log(saved_data);
-    
-    res.render('savedconnections', {saved_data:saved_data});
-});
-
-app.get('/about', (req,res,next)=>{
+app.get('/about', (req,res)=>{
     res.render('about');
 });
 
-app.get('/contact', (req,res,next)=>{
+app.get('/contact', (req,res)=>{
     res.render('contact');
 });
+
+// app.get('/*', (req,res)=>{
+//     res.send('ERROR 404! Page Not Found. Please enter a valid address!!');
+// });
 app.listen(3000);
 console.log('listening on port 3000....');
