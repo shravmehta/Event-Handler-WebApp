@@ -16,14 +16,28 @@ module.exports = router.get('/newConnection', (req,res)=>{
         
      if(typeof req.session.theUser === 'undefined' ){
         req.session.theUser = userDB.getUser('U01');
-        console.log(req.session.theUser);
+        req.session.theUser.connectionList=[];
+
+        for(var i = 0; i < req.session.theUser.rsvp.length;i++){
+            var connection = connectionDB.getconnection(req.session.theUser.rsvp[i].connectionID);
+            var connObject = {
+                connectionID: connection.connectionID,
+                connection_name: connection.connection_name,
+                connection_topic: connection.connection_topic,
+                connection_host: connection.connection_host,
+                connection_display: connection.connection_display,
+                details: connection.details,
+                date_time: connection.date_time,
+                location: connection.location,
+                rsvp:req.session.theUser.rsvp[i].rsvp
+            }
+            req.session.theUser.connectionList.push(connObject);
+            }
         
-       // console.log(req.session.theUser);
+       console.log(req.session.theUser.connectionList);
         if(req.session.theUser != null){
-        req.session.theUser.connections = connectionDB.getUserConnections('U01');
-        //console.log(user_profile_conn);
-               
-        res.render('savedconnections', {connectiondata: req.session.theUser.connections, user: req.session.theUser});
+        req.session.theUser.connections = connectionDB.getUserConnections('U01');               
+        res.render('savedconnections', {connectiondata: req.session.theUser.connectionList, user: req.session.theUser});
     }
     else{
         res.send('no session');
@@ -50,70 +64,62 @@ module.exports = router.get('/savedconnections', (req,res)=>{
 
          if(typeof req.session.theUser != undefined){
            
-            if(req.query.action === 'updateRSVP'){
-                //console.log("IN UPDATE RSVP "+req.query.rsvp);
-                
-                
-                var connections_list = connectionDB.getconnections();
-                // console.log(connections_list);
-                
-                 for(var i =0; i<connections_list.length; i++){
-                     if(requestID === connections_list[i].connectionID){
-                            if(requestRsvp === 'yes'){
-                                console.log("IN YES");
-                                
-                                for(var i = 0; i < req.session.theUser.rsvp.length;i++){
-                                    console.log("SESSION RSVPP ARRAY"+JSON.stringify(req.session.theUser.rsvp[i]));
-                                    console.log("Session id "+req.session.theUser.rsvp[i].connectionID +" Query id "+req.query.connectionid);
-
-                                    if(req.session.theUser.rsvp[i].connectionID === req.query.connectionid){
-                                        console.log("MATCH");
-
-                                    }
-                                }
-                                getconnectionlist = connectionDB.getconnection(requestID);
-                                getconnectionlist.rsvp
-                                userconn = UserConnection.userConnection(getconnectionlist, requestRsvp, requestUser);
-                                userconnectionlist.push(userconn);
-                                // new userProfile(requestUser, userconnectionlist);
-
-                                var userprofileobject = new userProfile.userProfile(requestUser, userconnectionlist);
-                                var connection_data = userprofileobject.getConnections();
-                                req.session.theUser.connections.push(connection_data);
-                                var connectiondetails = req.session.theUser.connections;
-                                var userdetails = req.session.theUser;
-                               
-                                
-
-
-                                
-                                res.render('savedconnections', {connectiondata: connectiondetails, user: userdetails});
-                            }
-                            else if(requestRsvp === 'maybe'){
-                                getconnectionlist = connectionDB.getconnection(requestID);
-                                userconn = UserConnection.userConnection(getconnectionlist, requestRsvp, requestUser);
-                                userconnectionlist.push(userconn);
-
-                                var userprofileobject = new userProfile(requestUser, userconnectionlist);
-                                var connection_data = userprofileobject.getConnections();
-                                req.session.theUser.connections.push(connection_data);
-                                var connectiondetails = req.session.theUser.connections;
-                                var userdetails = req.session.theUser;
-                                
-
-                                res.render('savedconnections',{connectiondata: connectiondetails, user: userdetails});
-                            }
-                            else if (rsvp ==='no'){
-                                res.render('savedconnections',{connectiondata: connectiondetails, user: userdetails});
-                            }
-                            else{
-                                res.send('invalid rsvp value. Please enter an valid input for rsvp');
-                            }
+            if(req.query.action === 'updateRSVP'){ 
+                var found = false;  
+                if(req.query.rsvp !== "No"){
+                    for(var i = 0; i < req.session.theUser.connectionList.length;i++){
+                        console.log(req.query.connectionid);
+                        console.log(req.session.theUser.connectionList[i].connectionID);
+                        if(req.session.theUser.connectionList[i].connectionID===req.query.connectionid){
+                            console.log(" YOU UPDATED CONNECTION ---->"+req.session.theUser.connectionList[i].connection_name);
+                            req.session.theUser.connectionList[i].rsvp = req.query.rsvp;
+                            found = true;
                         }
-                     }
+                    }  
+
+                    if(!found){
+                        var connection = connectionDB.getconnection(req.query.connectionid);
+                        var connObject = {
+                            connectionID: connection.connectionID,
+                            connection_name: connection.connection_name,
+                            connection_topic: connection.connection_topic,
+                            connection_host: connection.connection_host,
+                            connection_display: connection.connection_display,
+                            details: connection.details,
+                            date_time: connection.date_time,
+                            location: connection.location,
+                            rsvp:req.query.rsvp
+                        }
+                        req.session.theUser.connectionList.push(connObject);
+                    }
+
+                } else {
+                    var keepConnections = [];
+                    console.log("DELETE");
+                    
+                    for(var i = 0; i < req.session.theUser.connectionList.length;i++){
+                        console.log(req.query.connectionid);
+                        console.log(req.session.theUser.connectionList[i].connectionID);
+                        if(req.session.theUser.connectionList[i].connectionID!==req.query.connectionid){
+                            console.log("IN IF");
+                            
+                            console.log(req.session.theUser.connectionList[i].connectionID);
+                            console.log(req.query.connectionid);
+
+                            
+                            keepConnections.push(req.session.theUser.connectionList[i])
+                        }
+                    } 
+                    console.log("SESSION LIST "+keepConnections);
+
+                    req.session.theUser.connectionList = keepConnections;
+                    console.log("SESSION LIST "+req.session.theUser.connectionList);
+                }
+                    res.render('savedconnections',{connectiondata: req.session.theUser.connectionList, user: req.session.theUser});  
                  }
+
              }
-        else if(req.query.action === 'delete'){
+        else if(req.query.action === 'cancel'){
             var connID = req.query.connectionid;
             var theUser = req.session.theUser;
            for(var i=0; i< theUser.connections.length; i++){
@@ -140,3 +146,13 @@ module.exports = router.get('/savedconnections', (req,res)=>{
         }
        
      });
+
+     function containsObject(obj, list) {
+        var i;
+        for (i = 0; i < list.length; i++) {
+            if (list[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    }

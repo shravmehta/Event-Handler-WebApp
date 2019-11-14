@@ -14,50 +14,38 @@ module.exports.getconnections = function(){
   for(var i=0; i<data.length; i++){
     var connDB = new connectiond.connection(data[i].connectionID, data[i].connection_name, data[i].connection_topic, data[i].connection_host, data[i].connection_display, data[i].details, data[i].connection_location, data[i].date_time);
     all_connection.push(connDB);
-  }
-  // console.log(all_connection);
-  
+  }  
   return all_connection;
 };
 
-module.exports.getconnection = function(connID){
-  console.log("you called ");
-  
-    for(var i=0; i< data.length; i++){
-      console.log(i+")"+connID+"--->"+data[i].connectionID);
-      
+module.exports.getconnection = function(connID){  
+    for(var i=0; i< data.length; i++){      
         if(data[i].connectionID === connID){
             var matchedconn = new connectiond.connection(data[i].connectionID, data[i].connection_name, data[i].connection_topic, data[i].connection_host, data[i].connection_display, data[i].details, data[i].connection_location, data[i].date_time);
         }
-    }
-    console.log(matchedconn +" we found");
-    
+    }    
     return matchedconn;
   };
 
   module.exports.getUserConnections = function(userid){
-            console.log("connectionDB MATCH FOUND "+JSON.stringify(userDB.getUser(userid).rsvp));
             var connections = [];
             for(var i =0; i < userDB.getUser(userid).rsvp.length;i++){
-              console.log(userDB.getUser(userid).rsvp[i].connectionID);
               
                 connections.push(this.getconnection(userDB.getUser(userid).rsvp[i].connectionID));
             }
-            console.log("connectionDB MATCH FOUND "+JSON.stringify(connections));
-
     return connections;
   }
-  
-  module.exports.getconnectionByUser = function(userid){
-    var finalconn = [];
-    for(var i=0; i<data.length; i++){
-      if(data[i].user_yes == userid || data[i].user_maybe ==userid){
-        var connuser = new connectiond.connection(data[i].connectionID, data[i].connection_name, data[i].connection_topic, data[i].connection_host, data[i].connection_display, data[i].details, data[i].connection_location, data[i].date_time);
-        finalconn.push(connuser);
-      }
-    }
-    return finalconn;
-  };
+
+  // module.exports.getconnectionByUser = function(userid){
+  //   var finalconn = [];
+  //   for(var i=0; i<data.length; i++){
+  //     if(data[i].user_yes == userid || data[i].user_maybe ==userid){
+  //       var connuser = new connectiond.connection(data[i].connectionID, data[i].connection_name, data[i].connection_topic, data[i].connection_host, data[i].connection_display, data[i].details, data[i].connection_location, data[i].date_time);
+  //       finalconn.push(connuser);
+  //     }
+  //   }
+  //   return finalconn;
+  // };
 
   module.exports.validation = function(input){
     console.log("IN validation function "+input);

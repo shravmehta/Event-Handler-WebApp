@@ -1,6 +1,6 @@
 userd = require('./user');
 var user_data =[
-    {userID: 'U01', first_name: 'Shrav', last_name: 'Mehta', email: 'xyz@abc.com', country: 'United States', connection_yes: ["EH02"], connection_maybe: ["EH03"],rsvp:[{connectionID:"EH_02",rsvp:"yes"},{connectionID:"EH_03",rsvp:"maybe"}] },
+    {userID: 'U01', first_name: 'Shrav', last_name: 'Mehta', email: 'xyz@abc.com', country: 'United States', connection_yes: ["EH02"], connection_maybe: ["EH03"],rsvp:[{connectionID:"EH_02",rsvp:"Yes"},{connectionID:"EH_03",rsvp:"Maybe"}] },
                 
     {userID: 'U02', first_name: 'Michael', last_name: 'Scott', email: 'michael@paper.com', Country: 'United States', connection_yes:["EH01"], connection_maybe: ["EH05"],rsvp:[]}];
 

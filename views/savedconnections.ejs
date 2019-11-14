@@ -30,9 +30,9 @@
                                 
                              <% for(var i=0; i< connectiondata.length; i++){ %>
                                  <tr>
-                                     <th><a href="/connection?id=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
+                                     <th><a href="/connection?connectionid=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
                                      <th><%=connectiondata[i].connection_topic%></th>
-                                     <th><%=connectiondata[i].user_yes%><%=connectiondata[i].user_no%></th>
+                                     <th><%=connectiondata[i].rsvp%></th>
                                      <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connectiondata[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
 
                                  </tr>
@@ -41,10 +41,10 @@
 
                             <% for(var i =0; i< connectiondata.length; i++){ %>
                                 <tr>
-                                <th><a href="/connection?id=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
+                                <th><a href="/connection?connectionid==<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
                                 <th><%=connectiondata[i].connection_topic%></th>
-                                <th><%=connectiondata[i].user_yes%><%=connectiondata[i].user_no%></th>
-                                <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
+                                <th><%=connectiondata[i].rsvp%></th>
+                                <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li></ul></th>
                                 </tr>
                            <% } %>
                             <% } %>
