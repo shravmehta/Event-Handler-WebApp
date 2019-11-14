@@ -13,10 +13,16 @@ var app = express();
 app.use(session({secret: 'Shrav', saveUninitialized:true, resave:false}));
 
 module.exports = router.get('/newConnection', (req,res)=>{
+    if(req.session.theUser!== undefined){
+        req.session.header = true;
+     } else {
+         req.session.header = false;
+     }
         
      if(typeof req.session.theUser === 'undefined' ){
         req.session.theUser = userDB.getUser('U01');
         req.session.theUser.connectionList=[];
+        req.session.header = true;
 
         for(var i = 0; i < req.session.theUser.rsvp.length;i++){
             var connection = connectionDB.getconnection(req.session.theUser.rsvp[i].connectionID);
@@ -37,34 +43,37 @@ module.exports = router.get('/newConnection', (req,res)=>{
        console.log(req.session.theUser.connectionList);
         if(req.session.theUser != null){
         req.session.theUser.connections = connectionDB.getUserConnections('U01');               
-        res.render('savedconnections', {connectiondata: req.session.theUser.connectionList, user: req.session.theUser});
+        res.render('savedconnections', {connectiondata: req.session.theUser.connectionList, user: req.session.theUser,header:req.session.header});
     }
     else{
         res.send('no session');
     }
 }
     else{
-        res.render('newConnection');
+        res.render('newConnection',{header:req.session.header});
     }
 });
 
 module.exports = router.get('/savedconnections', (req,res)=>{
-    console.log("we inside savedconnection checking for the user session");
-   var requestID = req.query.connectionid;
-    var requestRsvp = req.query.rsvp;
-   var  requestUser = req.session.theUser.userID;
-   var userconnectionlist = [];
-   var getconnectionlist =[];
-   var userConn;
-   
+    console.log("upar chu");
+    
+    if(req.session.theUser!== undefined){
+        req.session.header = true;
+     } else {
+         req.session.header = false;
+     }
 
-   console.log("ACTION "+req.query.action);
-   
-
-
-         if(typeof req.session.theUser != undefined){
+     console.log("LOGGING"+req.session.theUser);
+     
+     
+  
+         if(req.session.theUser){
+             console.log("INSIDE IF");
+             
            
             if(req.query.action === 'updateRSVP'){ 
+                console.log("1");
+
                 var found = false;  
                 if(req.query.rsvp !== "No"){
                     for(var i = 0; i < req.session.theUser.connectionList.length;i++){
@@ -115,44 +124,59 @@ module.exports = router.get('/savedconnections', (req,res)=>{
                     req.session.theUser.connectionList = keepConnections;
                     console.log("SESSION LIST "+req.session.theUser.connectionList);
                 }
-                    res.render('savedconnections',{connectiondata: req.session.theUser.connectionList, user: req.session.theUser});  
+                    res.render('savedconnections',{connectiondata: req.session.theUser.connectionList, user: req.session.theUser, header:req.session.header});  
                  }
 
-             }
-        else if(req.query.action === 'cancel'){
-            var connID = req.query.connectionid;
-            var theUser = req.session.theUser;
-           for(var i=0; i< theUser.connections.length; i++){
-               if(theUser.connections.length === 1){
-                   if(theUser.connections[i].connectionID === connID){
-                       theUser.connections.splice(i-1,1);
-                   }
-                   else{
-                       theUser.connections[i].splice(i,1);
-                   }
-               }
-           }
+             
+        else if(req.query.action === 'delete'){
+            console.log("2");
+
+            var keepConnections = [];
+            for(var i = 0; i < req.session.theUser.connectionList.length;i++){
+                console.log(req.query.connectionid);
+                console.log(req.session.theUser.connectionList[i].connectionID);
+                if(req.session.theUser.connectionList[i].connectionID!==req.query.connectionid){
+                    console.log("IN IF");
+                    
+                    console.log(req.session.theUser.connectionList[i].connectionID);
+                    console.log(req.query.connectionid);
+
+                    
+                    keepConnections.push(req.session.theUser.connectionList[i])
+                }
+            } 
+            console.log("SESSION LIST "+keepConnections);
+
+            req.session.theUser.connectionList = keepConnections;
+            console.log("SESSION LIST "+req.session.theUser.connectionList);
+            res.render('savedconnections',{connectiondata: req.session.theUser.connectionList, user: req.session.theUser, header:req.session.header});  
+
         }
         else if(req.query.action === 'signout'){
+            console.log("3");
+
             req.session.destroy(function(err) {
                 if (err) {
                   console.log("error deleting session");
                 }
               });
-              res.redirect('index');
+              res.redirect('/home');
+        } else{
+        console.log("4");
+            
+        res.render('savedconnections',{connectiondata: req.session.theUser.connectionList, user: req.session.theUser,header:req.session.header});
+         }
+        } else {
+            res.render('savedconnections',{header:req.session.header});
+
         }
-        else{
-            res.render('savedconnections');
-        }
+        
        
      });
 
-     function containsObject(obj, list) {
-        var i;
-        for (i = 0; i < list.length; i++) {
-            if (list[i] === obj) {
-                return true;
-            }
-        }
-        return false;
-    }
+
+     module.exports = router.get('/myconnections', (req,res)=>{
+         console.log("aahiya");
+         
+         res.redirect('savedconnections');
+     });

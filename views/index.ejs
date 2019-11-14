@@ -8,8 +8,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        
+       <%if(header){ %>
+        <% include header-con.ejs %>
+       <%} else{ %>
         <% include header.ejs %>
+       <%}%>
         <section id ="intro">
             <div class="container">
             <h1>Welcome To &lt;EventHandler/&gt;</h1>

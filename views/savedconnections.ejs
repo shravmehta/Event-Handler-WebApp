@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <% include header-con.ejs %>
-     
+            <%if(header){ %>
+                <% include header-con.ejs %>
+        
         <section id ="user-connection">
             <div class="container">
                 <div class="user-name">
@@ -33,7 +34,7 @@
                                      <th><a href="/connection?connectionid=<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
                                      <th><%=connectiondata[i].connection_topic%></th>
                                      <th><%=connectiondata[i].rsvp%></th>
-                                     <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connectiondata[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" class="cancel-button">Cancel</button></li></ul></th>
+                                     <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connectiondata[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" onclick="location.href='/savedConnections?action=delete&connectionid=<%=connectiondata[i].connectionID%>'" class="cancel-button">Cancel</button></li></ul></th>
 
                                  </tr>
                                 <% } %>
@@ -44,7 +45,7 @@
                                 <th><a href="/connection?connectionid==<%=connectiondata[i].connectionID%>"><%=connectiondata[i].connection_name%></a></th>
                                 <th><%=connectiondata[i].connection_topic%></th>
                                 <th><%=connectiondata[i].rsvp%></th>
-                                <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li></ul></th>
+                                <th><ul class="up-del"><li><button type="submit" onclick="location.href='/connection?connectionid=<%=connections[i].connectionID%>'" class="update-button" >Update</button></li><li><button type="button" onclick="location.href='/savedConnections?connectionid=<%=connections[i].connectionID%>&action=delete'" class="update-button" >Update</button></li></ul></th>
                                 </tr>
                            <% } %>
                             <% } %>
@@ -52,6 +53,16 @@
                  </div>
              </div>
         </section>
+        <%} else{ %>
+            <% include header.ejs %>
+            <section id ="user-connection">
+                    <div class="container">
+                        <div>
+                             <h2>Login to access this page.</h2>                 
+                         </div>
+                     </div>
+                </section>
+            <%}%>
         <% include footer.ejs %>
     </body>
 </html>

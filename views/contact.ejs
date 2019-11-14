@@ -8,7 +8,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-         <% include header.ejs %>
+            <%if(header){ %>
+                <% include header-con.ejs %>
+               <%} else{ %>
+                <% include header.ejs %>
+               <%}%>
         <section class="contact-us">
             <div class="container">
                 <h2>Contact Us</h2>
