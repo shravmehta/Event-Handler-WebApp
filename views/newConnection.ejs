@@ -16,28 +16,25 @@
                 <%}%>
      
         <section class ="new-connection">
-                <div class="container">
-                    <div class="event-detail">
-                        <h2>Add New Connection:</h2>
-                            <form method="POST" id="new-connection">
-                                    <label id="topic" >Topic</label>
-                                    <input type="text">
-                                    <label id="name">Name</label>
-                                    <input type="text">
-                                    <label id="details">Details</label>
-                                    <input type="text">
-                                    <label id="where">Where</label>
-                                    <input type="text">
-                                    <label id="when">When</label>
-                                    <input type="date">
-                                    <button type="submit">Create Connection!</button>
-                
+                <div class="new-connection-container">
+                    <div>
+                            <h2>Add New Connection:</h2>
+                            <form class="new-connectionform" method="POST" action="newconnection">
+                                    <label>Event Name: <input type="text"  name="eventname" placeholder="Name of event" size="32" required/></label>
+                                    <label>Topic: </label>
+                                    <input type="radio"  id="radiobtnsports" name="topic"  value="Sports" checked/><label>Sports</label>
+                                                           
+                                     <input type="radio" id="radiobtneducation" name="topic" value="Education"/><label>Education</label><br>
+    
+                                    <label>Details: <input type="text"  name="details" placeholder="Describe the event..." size="200" required/></label>
+                                    <label>Location of the Event: <input type="text"  name="location" placeholder="Enter the event location" size="32" required/></label>
+                                    <label> Time of the Event: <input type="datetime-local"  name="time" required/></label>
+    
+                                    <input type="submit" id="newconnection-submit" value="Create"/>
                                 </form>
                     </div>
                     </div>
             </section>
-       
-
         <% include footer.ejs %>
     </body>
 </html>

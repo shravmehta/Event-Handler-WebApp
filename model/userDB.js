@@ -1,23 +1,66 @@
-userd = require('./user');
-var user_data =[
-    {userID: 'U01', first_name: 'Shrav', last_name: 'Mehta', email: 'xyz@abc.com', country: 'United States', connection_yes: ["EH02"], connection_maybe: ["EH03"],rsvp:[{connectionID:"EH_02",rsvp:"Yes"},{connectionID:"EH_03",rsvp:"Maybe"}] },
-                
-    {userID: 'U02', first_name: 'Michael', last_name: 'Scott', email: 'michael@paper.com', Country: 'United States', connection_yes:["EH01"], connection_maybe: ["EH05"],rsvp:[]}];
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var userSchema = new Schema({
+    userID: String,
+    first_name: String,
+    last_name: String,
+    email: String,
+    password: String,
+    country: String
+});
+
+var user_model = mongoose.model('Users' ,userSchema, 'Users');
+
+module.exports.addNewuser = function(userID,first_name,last_name,email,password,country){
+    var new_user = new user_model({userID:userID,first_name:first_name,last_name:last_name,email:email,password:password,country:country});
+    new_user.save(function(err){
+        console.log(err);
+    });
+}
+
+
+module.exports.addUser = function(userID,first_name,last_name,email,password,country,connectionID, rsvp){
+    var user = new user_model({userID:userID,first_name:first_name,last_name:last_name,email:email,password:password,country:country,rsvp:{connectionID:connectionID,rsvp:rsvp}});
+    addUser(user);
+}
+
+module.exports.addUser = function(user){
+    user.save(function(err){
+        console.log("couldnt add user to db" +err);
+        });
+}
+
 
 module.exports.getUsers = function(){
-    all_users =[];
-   for(var i=0; i< user_data.length; i++){
-        var userDB = new userd.user(user_data[i].userID,user_data[i].first_name, user_data[i].last_name, user_data[i].email, user_data[i].country, user_data[i].connection_yes, user_data[i].connection_maybe, user[i].rsvp);
-        all_users.push(userDB);
-   };
-   return all_users;
+    try{
+          return user_model.find();
+    }catch(err){
+        console.log("couldnot find all users");
+        
+    }
+  };
+
+  module.exports.getUser = function(uid){
+    try{
+        return user_model.findOne({userID:uid});
+    }catch(err){
+        console.log("couldnot find all users");
+        
+    }
 };
 
-module.exports.getUser = function(uid){
-    for(var i=0; i<user_data.length; i++){
-        if(user_data[i].userID === uid){
-            var user_profile = new userd.user(user_data[i].userID,user_data[i].first_name, user_data[i].last_name, user_data[i].email, user_data[i].country, user_data[i].connection_yes, user_data[i].connection_maybe,user_data[i].rsvp);
-        }
+module.exports.getLoginuser = function(email,pass){
+    try{
+        return user_model.findOne({email:email,password:pass});
+    }catch(err){
+        console.log("couldnt find the login user");
+        
     }
-    return user_profile;
-};
+}
+
+module.exports.getUserbyemail = function(email){
+    try{
+        return user_model.findOne({email:email});
+    }catch(err){console.log(err);
+    }
+}

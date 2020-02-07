@@ -41,6 +41,11 @@
                         <li><button type="submit" onclick="location.href='/savedConnections?action=updateRSVP&connectionid=<%=connectiondata.connectionID%>&rsvp=Yes'" id="yes-button">Yes</button></li>
                         <li><button type="submit" onclick="location.href='/savedconnections?action=updateRSVP&connectionid=<%=connectiondata.connectionID%>&rsvp=No'" id="no-button">No</button></li>
                         <li><button type="submit" onclick="location.href='/savedconnections?action=updateRSVP&connectionid=<%=connectiondata.connectionID%>&rsvp=Maybe'" id="maybe-button">Maybe</button></li>
+                        <% if(loggeduser){%>
+                            <li><button type="submit" onclick="location.href='/savedconnections?action=updateRSVP&connectionid=<%=connectiondata.connectionID%>&rsvp=Edit'" id="edit-button">Edit</button></li>
+                            <li><button type="submit" onclick="location.href='/savedconnections?action=updateRSVP&connectionid=<%=connectiondata.connectionID%>&rsvp=Delete'" id="edit-button">Delete</button></li>
+
+                            <%}%>
                     </ul>
                 </div>
             </div>

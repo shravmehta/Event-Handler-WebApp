@@ -283,3 +283,104 @@ footer a{
     min-height: 570px;
     align-content: center;
 }
+
+.loginform{
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin: auto;
+    padding: 0 50px;
+    margin-top: 6px;
+}
+#login-button, #signup-button{
+    
+    background-color: #d37a05;
+    font: inherit;
+    border: 1px solid #d37a05;
+    border-radius: 3px;
+    padding: 0.25rem 0.25rem;
+    margin-right: 1rem;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.26);
+    color: rgb(209, 204, 204);
+    cursor: pointer;
+}
+.loginform input, .loginform label{
+    width: 100%;
+    padding: 0.25rem;
+    display: block;
+}
+
+.login{
+    min-height: 570px;
+    max-width: 14rem;
+}
+
+.logincontainer{
+    text-align: center;
+    align-content: center;
+    width: 150%;
+    margin: auto;
+    padding: 50px 500px 50px;
+    margin-top: 6px;
+}
+
+#invalid-pass{
+    color: red;
+}
+
+.signupform{
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin: auto;
+    padding: 0 50px;
+    margin-top: 6px;
+}
+#signup-submit{
+    
+    background-color: #d37a05;
+    font: inherit;
+    border: 1px solid #d37a05;
+    border-radius: 3px;
+    padding: 0.25rem 0.25rem;
+    margin-right: 1rem;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.26);
+    color: rgb(209, 204, 204);
+    cursor: pointer;
+}
+.signupform input, .signupform label{
+    width: 100%;
+    padding: 0.25rem;
+    display: block;
+}
+
+.signup{
+    min-height: 570px;
+    max-width: 14rem;
+}
+
+.signupcontainer{
+    text-align: center;
+    align-content: center;
+    width: 150%;
+    margin: auto;
+    padding: 50px 500px 50px;
+    margin-top: 6px;
+}
+
+.new-connection{
+    text-align: center;
+   margin: auto;
+   margin-top: 6px;
+}
+
+.new-connectionform input, .new-connectionform label{
+    width: 100%;
+    padding: 0.25rem;
+    display: block;
+}
+
+#radiobtn{
+    display: inline-flex;
+}
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+            <%if(header){%>
+                <% include header-con.ejs %>
+                <% } else { %>
+                    <% include header.ejs %>
+                <%}%>
+     
+        <section class ="new-connection">
+                <div class="new-connection-container">
+                    <div>
+                            <h2>Edit Connection:</h2>
+                            <form class="new-connectionform" method="POST" action="editconnection">
+                                    <label>Event Name: <input type="text"  name="eventname" value="<%=data.connection_name%>" size="32" required/></label>
+                                    <label>Topic: </label>
+                                    <%if(data.connection_topic==="Sports"){%>
+                                        <input type="radio"  id="radiobtnsports" name="topic"  value="Sports" checked/><label>Sports</label>
+                                                           
+                                        <input type="radio" id="radiobtneducation" name="topic" value="Education"/><label>Education</label><br>
+                                    <%}else{%>
+                                        <input type="radio"  id="radiobtnsports" name="topic"  value="Sports" /><label>Sports</label>
+                                                           
+                                        <input type="radio" id="radiobtneducations" name="topic" value="Education" checked/><label>Education</label><br>
+                                    <%}%>
+
+    
+                                    <label>Details: <input type="text"  name="details" value="<%=data.details%>"  size="200" required/></label>
+                                    <label>Location of the Event: <input type="text"  name="location" value="<%=data.connection_location%>" size="32" required/></label>
+                                    <label> Time of the Event: <input type="datetime-local" value="<%=data.date_time%>"  name="time" required/></label>
+    
+                                    <input type="submit" id="newconnection-submit" value="Update Connection Information"/>
+                                </form>
+                    
+                    </div>
+                    </div>
+            </section>
+        <% include footer.ejs %>
+    </body>
+</html>

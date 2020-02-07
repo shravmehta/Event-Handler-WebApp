@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Event Handler | Welcome </title>
+        <link rel="stylesheet" href="../resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+    
+                <% include header.ejs %>
+               
+        <section class="login">
+            <div class="logincontainer">
+                <h2>Welcome to &lt;EventHandler/&gt; </h2>
+                <p>Please enter your username and password to enter the world of events!</p>
+                <% if(error !== false){ %>
+                    <p id="invalid-pass">Invalid username and password. Please try again.</p>
+                <%}%>
+                <form class="loginform" method="POST" action="login">
+                    <label>UserName: <input type="text"  name="email" placeholder="Enter your emailID" required/></label>
+                    <label> Password: <input type="password"  name="password" placeholder="Enter your password" required/></label>
+                    <input type="submit" id="login-button" value="Login"/>
+                </form>
+             </div>
+        </section>
+        <% include footer.ejs %>
+    </body>
+</html>

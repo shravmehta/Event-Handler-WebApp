@@ -1,11 +1,20 @@
 var http = require('http');
 var express = require('express');
-var connection_function = require('./model/connection');
 var profilecontroller = require('./routes/ProfileController');
 var session = require('express-session');
 var connectiondb = require('./model/connectionDB');
 
 var app = express();
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/EventHandler',function(err, db) {
+    if (err) {
+        console.log('Unable to connect to the server. Please start the server. Error:', err);
+    } else {
+        console.log('Connected to Server successfully!');
+    }
+});
 
 
 app.use('/resources', express.static('./resources'));
@@ -22,9 +31,6 @@ app.get('/' , (req,res)=>{
          req.session.header = false;
      }
 
-    // console.log("TEST 1"+connectiondb.validation("EH_01"));
-    // console.log("TEST 2"+connectiondb.validation("jsahd"));
-
     res.render('index',{header:req.session.header});
 });
 
@@ -37,17 +43,17 @@ app.get('/home' , (req,res)=>{
     res.render('index',{header:req.session.header});
 });
 
-app.get('/connections', (req,res)=>{
+app.get('/connections', async (req,res)=>{
     if(req.session.theUser!== undefined){
        req.session.header = true;
     } else {
         req.session.header = false;
     }
-    var conndata = connectiondb.getconnections();
+    var conndata = await connectiondb.getConnections();
     res.render('connections', {connectiondata: conndata,header:req.session.header});
 });
 
-app.get('/connection', (req,res)=>{
+app.get('/connection', async (req,res)=>{
     
     if(req.session.theUser!== undefined){
         req.session.header = true;
@@ -56,33 +62,49 @@ app.get('/connection', (req,res)=>{
      }
    var reqid = req.query.connectionid;
    if(reqid === undefined){
-    //    console.log("in if" + reqid);
        
-       var conndata = connectiondb.getconnections();
-    //    console.log(conndata);
+    var conndata = await connectiondb.getConnections();
        
-       res.render('connections', {connectiondata: conndata,header:req.session.header});
-   }
-   else if(connectiondb.validation(reqid)){
+       res.render('connections', {connectiondata: conndata,header:req.session.header,loggeduser:false});
+   }else if(await connectiondb.validation(reqid)&&req.session.theUser!==undefined){
     if(req.session.theUser!== undefined){
         req.session.header = true;
      } else {
          req.session.header = false;
      }
-    //    console.log("in else if" +reqid);
-       
-    res.render('connection', {connectiondata: connectiondb.getconnection(reqid),header:req.session.header});
+       var conndata = await connectiondb.getConnection(reqid);
+    var testName = req.session.theUser.first_name+req.session.theUser.last_name;
+    if(conndata.connection_host===testName){
+        res.render('connection', {connectiondata: conndata ,header:req.session.header,loggeduser:true});
+    } else {
+        res.render('connection', {connectiondata: conndata ,header:req.session.header,loggeduser:false});
+    }
    }
+   else if(await connectiondb.validation(reqid)){
+    if(req.session.theUser!== undefined){
+        req.session.header = true;
+     } else {
+         req.session.header = false;
+     }
+       var conndata = await connectiondb.getConnection(reqid);
+   
+       
+    res.render('connection', {connectiondata: conndata ,header:req.session.header,loggeduser:false});
+   }
+   else if(await connectiondb.validation(reqid)=== false){
+      
+       
+    res.send("error 404: Connection does not exist");
+}
    else{
     if(req.session.theUser!== undefined){
         req.session.header = true;
      } else {
          req.session.header = false;
      }
-    //    console.log("in else" +reqid);
        
-    var conndata = connectiondb.getconnections();
-    res.render('connections', {connectiondata: conndata,header:req.session.header});
+    var conndata = await connectiondb.getConnections();
+    res.render('connections', {connectiondata: conndata,header:req.session.header,loggeduser:false});
    }
 
 });

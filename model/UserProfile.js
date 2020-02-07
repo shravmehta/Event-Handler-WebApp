@@ -6,31 +6,47 @@
         this.userConnection = userconn;
     }
 
-    addConnection(connection,rsvp){
-        var i = this.userConnection.indexOf(connection);
-        if(i != -1){
-            this.userConnection.push(connection);
+    adduserConnection(userid, connid, connname, conntopic, rsvp){
+        try{
+            var userconnection = new userconnection_model({userID: userid, connectionID: connid, connection_name: connname, connection_topic: conntopic, rsvp: rsvp});
+            userconnection.save(function(err,userconn){
+                if(err) console.log(err);
+                console.log("Added new connection to user data");
+            });
+        }catch(err){
+            console.log(err);
+            
         }
-        else{
-            this.userConnection[i].rsvp = rsvp;
-        }
-     }
+    }
 
-    removeConnection(connection){
-        for(var i=0; i<this.userConnection.length; i++){
-            if(connection === this.userConnection[i]){
-                this.userConnection[i].splice(i,1);
+    deleteuserConnection(userid,connid){
+        try {
+            return userconnection_model.deleteOne({userID: userid,connectionID:connid});
+            } catch(err) {
+            console.log(err);
+            console.log("cannot delete");
+            
             }
+    }
+
+    updateRsvp(userid, connid,rsvp){
+        try{
+            return userconnection_model.findOneAndUpdate({userID:userid, connectionID: connid},{$set:{rsvp: rsvp}},function(err,doc){
+                // console.log(err);
+                console.log("updated rsvp");
+                // console.log(doc);
+              });
+        }catch(err){console.log(err);
         }
-     }
+    };
 
-     updateConnection(rsvp){
-        var i = this.userConnection.indexOf(connection);
-        this.userConnection[i].rsvp = rsvp;
-     }
-
-     getConnections(){
-         return this.userConnection;
+     getConnections(uid){
+        try{
+            return userconnection_model.findOne({userID:uid});
+        }catch(err){
+            console.log("couldnt fetch userconnections");
+            
+        }
      }
 
      emptyProfile(){

@@ -72,6 +72,13 @@ body{
     height: 25px;
 }
 
+#edit-button{
+    background-color: rgb(42, 111, 240); 
+    color: #eeecec;
+    border: none;
+    height: 25px;
+}
+
 header{
     background-color: #14608f;
     border-bottom: #d37a05 3px solid;
@@ -262,3 +269,4 @@ footer a{
     background: rgb(40, 65, 119);
     color: white;
     }
+

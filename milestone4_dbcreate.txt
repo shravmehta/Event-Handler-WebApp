@@ -1,0 +1,18 @@
+use EventHandler
+db.createCollection('Users');
+db.createCollection('Connections');
+db.createCollection('UserConnection');
+
+db.Users.insert([{userID: 'U01', first_name: 'Jim', last_name: 'Halpert', email: 'jim@paper.com', password:'test' ,country: 'United States'},{userID: 'U02', first_name: 'Michael', last_name: 'Scott', email: 'michael@paper.com', password:'test', Country: 'United States'},{userID: 'U03', first_name: 'Pam', last_name: 'Halpert', email: 'pam@paper.com', password:'test', Country: 'United States'},
+                {"userID" : "U26", "first_name" : "Shrav", "last_name" : "Mehta", "email" : "shravmehta@outlook.com", "password" : "$2b$12$ohcCoGCL16IxHher1260UOx44BqiP7SuQP0sW1Eis1LP3cehjaIba", "country" : "United States"}]);
+
+db.Connections.insert({connectionID: 'EH_01', connection_name: "UNCC Soccer event", connection_topic:"Sports", connection_host: "Jim Halpert", connection_display:"../resources/img/jim_halpert.jpg", details:"We are organizing a friendly soccer match. we need 22 people for the match so please register.", connection_location: "Winterfell",date_time:"10/27/19 18:00"},
+                        {connectionID: 'EH_02', connection_name: "Cricket at Lot 5a", connection_topic:"Sports", connection_host: "Michael Scott", connection_display:"../resources/img/michael_scott.jpg", details:"We are organizing a friendly cricket match. we need 22 people for the match so please register and please be on time.",connection_location: "Winterfell", date_time:"10/21/19 15:00"},
+                        {connectionID: 'EH_03', connection_name: "Tennis on weekend", connection_topic:"Sports", connection_host: "Pam Halpert", connection_display:"../resources/img/pam_halpert.jpg", details:"I want sombody to join me to play tennis on weekends. please let me know if anybody is interested.",connection_location: "Winterfell", date_time:"10/14/19 10:00"},
+                        {connectionID: 'EH_04', connection_name: "NBAD study group", connection_topic:"Education", connection_host: "Jim Halpert", connection_display:"../resources/img/jim_halpert.jpg", details:"This event is for people who are taking NBAD this semester, we can meet this weekend to complete the milestone 2 assignment in the library.",connection_location: "Winterfell", date_time:"10/14/19 12:00"},
+                        {connectionID: 'EH_05', connection_name: "Study group for midterms", connection_topic:"Education", connection_host: "Michael Scott", connection_display:"../resources/img/michael_scott.jpg, details:"This event is for people who are taking cloud computing, we can meet this weekend to study the content for the midterms.",connection_location: "Winterfell", date_time:"10/14/19 14:00"},
+                        {connectionID: 'EH_06', connection_name: "Leetcode and coffee", connection_topic:"Education", connection_host: "Pam Halpert", connection_display:"../resources/img/pam_halpert.jpg",details:"For the people who are graduating this sem or next sem, we can meet every weekends and practice interview questions and get coffee from starbucks.",connection_location: "Winterfell", date_time:"10/14/19 20:00"});
+
+
+db.UserConnection.insert({userID:'U01',connectionID: 'EH_01', connection_name: "UNCC Soccer event",connection_topic:"Sports",rsvp:"yes"},
+                        {userID:'U01',connectionID: 'EH_03',connection_name: "Tennis on weekend", connection_topic:"Sports",rsvp:"Maybe"});
